@@ -1,0 +1,79 @@
+-- 创建代理
+请求类型：POST
+请求参数：proxy对象
+{
+    "name": 代理名称（集群id+"_proxy"）,
+    "listen": 监听地址端口，eg："0.0.0.0:8991",
+    "upstream": mongo副本集群地址和端口，
+				eg：	
+				[
+					"202.202.0.12:27017",
+					"202.202.0.11:27017",
+					"202.202.0.13:27017"
+				],
+    "extra": {
+        "username": 集群管理员用户名，eg:"cds_root",
+        "password": 密码，eg："fAejc",
+        "customer_id": 客户编号,
+        "user_id": 用户id,
+        "port": consul注册端口,
+        "role": 集群类型,
+        "replicaset_name": 副本名称
+    },
+    "enabled": 代理状态，默认true
+}
+eg:
+curl -X POST 'http://localhost:8474/proxies' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "a7cf2ed0-b1e7-474d-b704-455bb1c7f66d_proxy",
+    "listen": "0.0.0.0:8991",
+    "upstream": [
+        "202.202.0.12:27017",
+        "202.202.0.11:27017",
+        "202.202.0.13:27017"
+    ],
+    "extra": {
+        "username": "cds_root",
+        "password": "fAejc",
+        "customer_id": "123",
+        "user_id": "123",
+        "port": "123",
+        "role": "123",
+        "replicaset_name": "123"
+    },
+    "enabled": true
+}'
+
+
+
+-- 获取代理
+curl --location --request GET 'http://localhost:8474/proxies/1f9c4abc-ec18-4594-afa7-b425658d6c5_proxy'
+请求类型：GET
+请求参数：name,代理名称
+{
+    "name":"1f9c4abc-ec18-4594-afa7-b425658d6c5_proxy",
+    "listen":"[::]:8990",
+    "upstream":[
+        "202.202.0.7:27017",
+        "202.202.0.6:27017",
+        "202.202.0.5:27017"
+    ],
+    "enabled":true,
+    "extra":{
+        "customer_id":"123",
+        "password":"RBdet",
+        "port":"123",
+        "replicaset_name":"123",
+        "role":"123",
+        "user_id":"123",
+        "username":"cds_root"
+    },
+    "Balancer":null
+}
+
+-- 删除代理
+curl --location --request DELETE 'http://localhost:8474/proxies/1f9c4abc-ec18-4594-afa7-b425658d6c5_proxy'
+请求类型：DELETE
+请求参数：name,代理名称
+

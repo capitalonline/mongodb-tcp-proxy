@@ -1,0 +1,8 @@
+[storage]
+    Type = "consul"
+    DSN = "100.51.0.18:8500"
+[log]
+    Path = "/app/logs/info.log"
+[app]
+    Host = "0.0.0.0"
+    Port = "7474"
